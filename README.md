@@ -2,6 +2,8 @@
 
 A powerful AI-powered Telegram chatbot built with n8n, featuring intelligent conversations, customizable settings, and comprehensive usage tracking.
 
+![SageAI n8n Workflow](screenshot.png)
+
 ## Features
 
 - 🤖 Advanced AI conversation capabilities using multiple AI models

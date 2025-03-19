@@ -43,15 +43,32 @@ The project uses a comprehensive PostgreSQL database with the following main tab
 
 1. **Database Setup**
    ```bash
-   psql -d your_database_name -f db.sql
+   # Make the setup script executable
+   chmod +x setup.sh
+   
+   # Run the setup script
+   ./setup.sh
    ```
+   This will:
+   - Read your database configuration from .env
+   - Create the database if it doesn't exist
+   - Set up all required tables and triggers
 
 2. **Environment Variables**
    Create a `.env` file with the following variables:
    ```
+   # Required Variables
    TELEGRAM_BOT_TOKEN=your_bot_token
    DATABASE_URL=postgresql://user:password@localhost:5432/database_name
    AI_API_KEY=your_ai_api_key
+
+   # Optional Configuration Variables (with defaults)
+   DEFAULT_AI_MODEL=gpt-4o-mini
+   DEFAULT_MAX_TOKENS=1000
+   DEFAULT_TEMPERATURE=0.7
+   DEFAULT_SYSTEM_PROMPT="You are a helpful AI assistant."
+   DEFAULT_DAILY_LIMIT=100
+   DEFAULT_MONTHLY_LIMIT=3000
    ```
 
 3. **n8n Configuration**
@@ -118,4 +135,4 @@ Created by [@1mr-newton](https://github.com/1mr-newton)
 
 - Thanks to the n8n team for their excellent workflow automation platform
 - Telegram Bot API for enabling bot creation
-- AI model providers for their APIs 
+- AI model providers for their APIs

@@ -8,7 +8,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatDeepSeek",
       "typeVersion": 1,
       "position": [
-        5420,
+        6080,
         960
       ],
       "id": "fe6b68e8-cb3f-4373-9adc-d80ba67242ce",
@@ -33,7 +33,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        5420,
+        6080,
         560
       ],
       "id": "b6af163a-899c-4570-8e91-c1a76146a767",
@@ -53,7 +53,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
       "typeVersion": 1,
       "position": [
-        5420,
+        6080,
         1860
       ],
       "id": "5bcbcc0e-35eb-4f7c-a77e-d6bed9e1d042",
@@ -73,7 +73,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        5420,
+        6080,
         1360
       ],
       "id": "91496942-4791-45a9-91fc-53c12f678117",
@@ -82,30 +82,6 @@
         "googlePalmApi": {
           "id": "mdXLfeiSClf4UGfL",
           "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "chatId": "1612078205",
-        "text": "={{ $('Open AI Agent').isExecuted ? $('Open AI Agent').item.json.output : \"\" }} \n{{ $('Claude Agent').isExecuted ? $('Claude Agent').item.json.output : \"\" }} \n{{ $('DeepSeek Agent').isExecuted ? $('DeepSeek Agent').item.json.output : \"\" }} \n{{ $('Gemini Agent').isExecuted ? $('Gemini Agent').item.json.output : \"\" }} \n{{ $('Groq Agent').isExecuted ? $('Groq Agent').item.json.output : \"\" }} ",
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        6560,
-        940
-      ],
-      "id": "18a59a00-a7c2-435c-9d77-ab85d0082782",
-      "name": "Telegram",
-      "webhookId": "7cf2ad59-a8c6-499d-8b4d-0e274451c01b",
-      "credentials": {
-        "telegramApi": {
-          "id": "SGzficJOB3gd324s",
-          "name": "Telegram account"
         }
       }
     },
@@ -126,7 +102,7 @@
       "typeVersion": 1.1,
       "position": [
         1000,
-        640
+        869
       ],
       "id": "fdcb36de-969c-48e1-9dbb-c8f056b6cb70",
       "name": "Telegram Trigger",
@@ -141,14 +117,14 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "-- Query to get a single user by telegram_id along with their settings and rate limits\nSELECT \n    u.id,\n    u.telegram_id,\n    u.username,\n    u.first_name,\n    u.language_code,\n    u.is_premium,\n    u.created_at,\n    us.notification_enabled,\n    us.preferred_language,\n    us.ai_model_preference,\n    us.system_prompt,\n    us.current_session_id,\n    rl.daily_limit,\n    rl.monthly_limit,\n    rl.current_daily_usage,\n    rl.current_monthly_usage,\n    rl.last_reset_daily,\n    rl.last_reset_monthly\nFROM \n    users u\nLEFT JOIN \n    user_settings us ON u.id = us.user_id\nLEFT JOIN\n    rate_limits rl ON u.id = rl.user_id\nWHERE \n    u.telegram_id = {{ $('Telegram Trigger').item.json.message?.from.id ?? $('Telegram Trigger').item.json.callback_query?.from.id }};",
+        "query": "-- Query to get a single user by telegram_id along with their settings and rate limits\nSELECT \n    u.id,\n    u.telegram_id,\n    u.username,\n    u.first_name,\n    u.language_code,\n    u.is_premium,\n    u.created_at,\n    us.notification_enabled,\n    us.preferred_language,\n    us.ai_model_preference,\n    us.system_prompt,\n    us.current_session_id,\n    rl.daily_limit,\n    rl.monthly_limit,\n    rl.current_daily_usage,\n    rl.current_monthly_usage,\n    rl.last_reset_daily,\n    rl.last_reset_monthly\nFROM \n    users u\nLEFT JOIN \n    user_settings us ON u.id = us.user_id\nLEFT JOIN\n    rate_limits rl ON u.id = rl.user_id\nWHERE \n    u.telegram_id =  {{ $('Constants We Can Reuse').item.json.user_telegram_id }};",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        1880,
-        640
+        2100,
+        869
       ],
       "id": "74b5ff14-6cc2-40e2-b7e4-0bb3925fd6b5",
       "name": "Get the User",
@@ -172,8 +148,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1660,
-        640
+        1880,
+        869
       ],
       "id": "5102c6ff-b90c-4437-973b-852f51d77580",
       "name": "Count Runs"
@@ -206,8 +182,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2320,
-        565
+        2540,
+        794
       ],
       "id": "00714980-35b2-49b3-ad93-f935170c9547",
       "name": "Check if we've exceed 2 rounds"
@@ -223,8 +199,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2540,
-        465
+        2760,
+        694
       ],
       "id": "38da1cc3-54b2-46bf-a147-f6d34f84c66a",
       "name": "Report to admin, we've exceeded runs",
@@ -253,8 +229,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        2100,
-        565
+        2320,
+        794
       ],
       "id": "9d64cefc-82b6-492b-87d8-fd626dbee4b8",
       "name": "increment runs count"
@@ -266,8 +242,8 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        2760,
-        465
+        2980,
+        694
       ],
       "id": "373ff19e-6cfd-4cec-8fca-7ec82148c175",
       "name": "Stop and Error"
@@ -410,8 +386,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2760,
-        665
+        2980,
+        969
       ],
       "id": "c457a0ae-47bd-44c9-b6c8-399694dcd86d",
       "name": "Create New User",
@@ -424,28 +400,6 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id}}",
-        "text": "good to go",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        3420,
-        1165
-      ],
-      "id": "4f424d40-4e5d-493c-9745-bb678100683b",
-      "name": "User has exceeded daily usage",
-      "webhookId": "894a6f32-9708-4e8e-95bf-49acc1bf8d59",
-      "credentials": {
-        "telegramApi": {
-          "id": "SGzficJOB3gd324s",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "mode": "raw",
         "jsonOutput": "{\n  \"chat_models\": {\n    \"openai\": [\n      {\n        \"name\": \"GPT 4o Mini\",\n        \"model_code\": \"gpt-4o-mini\",\n        \"description\": \"Cost-effective model with fast response\"\n      },\n      {\n        \"name\": \"GPT 4o\",\n        \"model_code\": \"gpt-4o-2024-11-20\",\n        \"description\": \"Flagship multimodal model with vision capabilities and knowledge up to Oct 2023\"\n      },\n      {\n        \"name\": \"GPT 4.5\",\n        \"model_code\": \"gpt-4.5-preview-2025-02-27\",\n        \"description\": \"Advanced reasoning model with enhanced context handling and up to date knowledge\"\n      },\n      {\n        \"name\": \"o3 mini\",\n        \"model_code\": \"o3-mini-2025-01-31\",\n        \"description\": \"Advanced reasoning model with enhanced context handling and up to date knowledge\"\n      },\n      {\n        \"name\": \"o1\",\n        \"model_code\": \"o1-2024-12-17\",\n        \"description\": \"Fast and cost-effective model for general purpose tasks\"\n      }\n    ],\n    \"google\": [\n      {\n        \"name\": \"Gemini Chat\",\n        \"model_code\": \"models/gemini-2.0-pro-exp\",\n        \"description\": \"Google's advanced multimodal model with 1M token context window\"\n      },\n      {\n        \"name\": \"Gemini Reasoner\",\n        \"model_code\": \"models/gemini-2.0-flash-thinking-exp-1219\",\n        \"description\": \"Faster, more cost-effective version of Gemini optimized for efficiency\"\n      }\n    ],\n    \"claude\": [\n      {\n        \"name\": \"Claude 3.7 Sonnet\",\n        \"model_code\": \"claude-3-5-sonnet-20240620\",\n        \"description\": \"Anthropic's latest model with exceptional reasoning and 200K context window\"\n      },\n      {\n        \"name\": \"Claude 3.5 Haiku\",\n        \"model_code\": \"claude-3-haiku-20240307\",\n        \"description\": \"Fast, cost-effective model for high-volume, simpler tasks\"\n      }\n    ],\n    \"groq\": [\n      {\n        \"name\": \"Qwen Chat\",\n        \"model_code\": \"qwen-2.5-32b\",\n        \"description\": \"Alibaba's general purpose chat model with strong multilingual capabilities\"\n      },\n      {\n        \"name\": \"Qwen Coder\",\n        \"model_code\": \"qwen-2.5-coder-32b\",\n        \"description\": \"Specialized model for code generation and technical problem solving\"\n      },\n      {\n        \"name\": \"LLaMA 3 70B\",\n        \"model_code\": \"llama3-70b-8192\",\n        \"description\": \"Meta's open model served by Groq with exceptional reasoning capabilities\"\n      }\n    ],\n    \"deepseek\": [\n      {\n        \"name\": \"DeepSeek Chat\",\n        \"model_code\": \"deepseek-chat\",\n        \"description\": \"Specialized model for mathematical reasoning and problem solving\"\n      },\n      {\n        \"name\": \"DeepSeek Reasoner\",\n        \"model_code\": \"deepseek-reasoner\",\n        \"description\": \"Latest generation model with improved reasoning and instruction following\"\n      }\n    ]\n  },\n  \"image_gen_models\": {}\n}",
         "options": {}
@@ -453,8 +407,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1440,
-        640
+        1660,
+        869
       ],
       "id": "715fa20f-0639-457c-8f37-15c5c33de876",
       "name": "AI Models JSON List"
@@ -462,16 +416,16 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('Message to Send').item.json.text }}",
+        "text": "={{ $('Message to Send').item.json.text.trim() }}",
         "options": {
-          "systemMessage": "={{ $('Get the User').item.json.system_prompt }}",
+          "systemMessage": "=For context: \nYou're in telegram enviroment.\n{{ $('Get the User').item.json.system_prompt }} in telegram.\n\nWriting Rules:\nThe Bot API supports basic formatting for messages. You can use bold, italic, underlined, strikethrough, spoiler text, block quotations as well as inline links and pre-formatted code in your messages. Telegram clients will render them accordingly. You can specify text entities directly, or use markdown-style.\n\nNote that Telegram clients will display an alert to the user before opening an inline link ('Open this link?' together with the full URL).\n\nMessage entities can be nested, providing following restrictions are met:\n- If two entities have common characters, then one of them is fully contained inside another.\n- bold, italic, underline, strikethrough, and spoiler entities can contain and can be part of any other entities, except pre and code.\n- blockquote and expandable_blockquote entities can't be nested.\n- All other entities can't contain each other.\n\nLinks tg://user?id=<user_id> can be used to mention a user by their identifier without using a username. Please note:\n\nThese links will work only if they are used inside an inline link or in an inline keyboard button. For example, they will not work, when used in a message text.\nUnless the user is a member of the chat where they were mentioned, these mentions are only guaranteed to work if the user has contacted the bot in private in the past or has sent a callback query to the bot via an inline button and doesn't have Forwarded Messages privacy enabled for the bot.\n\n\nMarkdownV2 style\nUse the following syntax in your message:\n\n*bold \\*text*\n_italic \\*text_\n__underline__\n~strikethrough~\n||spoiler||\n*bold _italic bold ~italic bold strikethrough ||italic bold strikethrough spoiler||~ __underline italic bold___ bold*\n[inline URL](http://www.example.com/)\n[inline mention of a user](tg://user?id=123456789)\n![👍](tg://emoji?id=5368324170671202286)\n`inline fixed-width code`\n```\npre-formatted fixed-width code block\n```\n```python\npre-formatted fixed-width code block written in the Python programming language\n```\n>Block quotation started\n>Block quotation continued\n>Block quotation continued\n>Block quotation continued\n>The last line of the block quotation\n**>The expandable block quotation started right after the previous block quotation\n>It is separated from the previous block quotation by an empty bold entity\n>Expandable block quotation continued\n>Hidden by default part of the expandable block quotation started\n>Expandable block quotation continued\n>The last line of the expandable block quotation with the expandability mark||\n\nPlease note:\nAny character with code between 1 and 126 inclusively can be escaped anywhere with a preceding '\\' character, in which case it is treated as an ordinary character and not a part of the markup. This implies that '\\' character usually must be escaped with a preceding '\\' character.\nInside pre and code entities, all '`' and '\\' characters must be escaped with a preceding '\\' character.\nInside the (...) part of the inline link and custom emoji definition, all ')' and '\\' must be escaped with a preceding '\\' character.\nIn all other places characters '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!' must be escaped with the preceding character '\\'.\nIn case of ambiguity between italic and underline entities __ is always greadily treated from left to right as beginning or end of an underline entity, so instead of ___italic underline___ use ___italic underline_**__, adding an empty bold entity as a separator.",
           "passthroughBinaryImages": false
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        5332,
+        5992,
         -60
       ],
       "id": "228ab7ae-ecaa-4b9a-9b44-d8a750b2a0fa",
@@ -482,7 +436,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolCalculator",
       "typeVersion": 1,
       "position": [
-        5420,
+        6080,
         160
       ],
       "id": "d90c5e09-9ce2-46f2-adb4-0875b6430545",
@@ -491,7 +445,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('Message to Send').item.json.text }}",
+        "text": "={{ $('Message to Send').item.json.text.trim() }}",
         "options": {
           "systemMessage": "={{ $('Get the User').item.json.system_prompt }}",
           "passthroughBinaryImages": true
@@ -500,7 +454,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        5332,
+        5992,
         1640
       ],
       "id": "43c91f88-b909-4375-963a-7d27fea5d23b",
@@ -509,7 +463,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('Message to Send').item.json.text }}",
+        "text": "={{ $('Message to Send').item.json.text.trim() }}",
         "options": {
           "systemMessage": "={{ $('Get the User').item.json.system_prompt }}",
           "passthroughBinaryImages": true
@@ -518,7 +472,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        5332,
+        5992,
         1140
       ],
       "id": "1e625193-b498-4284-bd13-4ba80712ffca",
@@ -527,7 +481,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('Message to Send').item.json.text }}",
+        "text": "={{ $('Message to Send').item.json.text.trim() }}",
         "options": {
           "systemMessage": "={{ $('Get the User').item.json.system_prompt }}",
           "passthroughBinaryImages": true
@@ -536,7 +490,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        5332,
+        5992,
         740
       ],
       "id": "6f1b8b5a-0984-4be9-a8a1-760e5eb8e4b0",
@@ -545,7 +499,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('Message to Send').item.json.text }}",
+        "text": "={{ $('Message to Send').item.json.text.trim() }}",
         "options": {
           "systemMessage": "={{ $('Get the User').item.json.system_prompt }}",
           "passthroughBinaryImages": true
@@ -554,7 +508,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        5332,
+        5992,
         340
       ],
       "id": "a0efe6ea-d224-4009-9059-cc77415b7c99",
@@ -565,8 +519,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        5860,
-        940
+        6520,
+        890
       ],
       "id": "40f87e39-cf6c-464e-931b-91967143a08f",
       "name": "No Operation, do nothing"
@@ -584,7 +538,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        5180,
+        5840,
         160
       ],
       "id": "cf8f02cf-1abe-466c-afa3-9ee9635d9fd3",
@@ -604,7 +558,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        5300,
+        5960,
         160
       ],
       "id": "9e020fd0-f3b6-45b4-b52c-5cffff5110cc",
@@ -625,8 +579,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1220,
-        640
+        1440,
+        869
       ],
       "id": "f242ecd2-a6ff-43f9-8079-8d4e044d9dd8",
       "name": "Commands"
@@ -659,8 +613,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3200,
-        407
+        3640,
+        492.5
       ],
       "id": "060d7d87-3a21-4c58-a44c-66e5ed517969",
       "name": "Check if the input is a valid command"
@@ -670,13 +624,14 @@
         "chatId": "={{$('Telegram Trigger').item.json.message.from.id}}",
         "text": "You sent an invalid command\n\nUse /help for more info about this bot.",
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "disable_notification": "={{ $('Get the User').item.json.notification_enabled }}"
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3420,
+        3860,
         765
       ],
       "id": "0f313bf0-4288-4d81-a90a-56b95eebb909",
@@ -694,14 +649,15 @@
         "chatId": "={{$('Telegram Trigger').item.json.message.from.id}}",
         "text": "Welcome to this bot",
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "disable_notification": "={{ $('Get the User').item.json.notification_enabled }}"
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3640,
-        23
+        4080,
+        48
       ],
       "id": "acda820d-cf5f-4976-a1fe-bca370c14318",
       "name": "Welcome message for start comand",
@@ -718,14 +674,15 @@
         "chatId": "={{$('Telegram Trigger').item.json.message.from.id}}",
         "text": "How may I help you?",
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "disable_notification": "={{ $('Get the User').item.json.notification_enabled }}"
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3640,
-        223
+        4080,
+        248
       ],
       "id": "242f6470-bf42-47c4-a9d0-0a9cee475ae7",
       "name": "Help Message for help command",
@@ -888,8 +845,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3860,
-        623
+        4300,
+        648
       ],
       "id": "33d9ad49-5596-43e1-8c4d-0b9a0f977ac9",
       "name": "Create New Convsersation ID",
@@ -927,45 +884,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2980,
-        640
+        3420,
+        542.5
       ],
       "id": "a25202d8-388b-4cad-b40d-d8aa50b49b25",
       "name": "Check if the message starts with slash"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "loose",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "4d6a817f-159d-4954-97ed-2a474e7afa30",
-              "leftValue": "={{ $('Get the User').item.json.current_daily_usage }}",
-              "rightValue": "={{ $('Get the User').item.json.daily_limit }}",
-              "operator": {
-                "type": "number",
-                "operation": "lte"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "looseTypeValidation": true,
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        3200,
-        1040
-      ],
-      "id": "abcbdf04-0de6-4fdb-a187-31cebd328e0a",
-      "name": "Check if user has not exceeded their daily limit"
     },
     {
       "parameters": {
@@ -996,8 +919,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2540,
-        665
+        2760,
+        894
       ],
       "id": "772883b5-f63e-495e-b01c-6f068ba80e27",
       "name": "Check if there's no user with the telegram id",
@@ -1008,14 +931,15 @@
         "chatId": "={{$('Telegram Trigger').item.json.message.from.id}}",
         "text": "New conversation thread created. Ask me anything",
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "disable_notification": "={{ $('Get the User').item.json.notification_enabled }}"
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        4080,
-        623
+        4520,
+        648
       ],
       "id": "001df269-37f6-4291-b17a-22e2cbae941c",
       "name": "Tell user we've created new session, they can start chatting",
@@ -1164,8 +1088,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        4960,
-        923
+        5620,
+        848
       ],
       "id": "f5727fac-57c6-4218-8e32-216102a4d6b4",
       "name": "Model Selection"
@@ -1355,8 +1279,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        3420,
-        181
+        3860,
+        291.5
       ],
       "id": "1fb72ad3-928e-466b-bd99-4277a3117006",
       "name": "Bot Commands Handler"
@@ -1439,6 +1363,31 @@
               },
               "renameOutput": true,
               "outputKey": "sticker"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6be70fc5-03a9-41b7-b180-66ad80b6c017",
+                    "leftValue": "={{ $('Constants We Can Reuse').item.json.is_inline_query }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "inline_query"
             }
           ]
         },
@@ -1447,8 +1396,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        2760,
-        865
+        2980,
+        1169
       ],
       "id": "23eb2752-c69d-47e1-8ee8-c17b1a7e4aac",
       "name": "Incoming Input Handler"
@@ -1583,14 +1532,15 @@
           ]
         },
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "disable_notification": "={{ $('Get the User').item.json.notification_enabled }}"
         }
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3640,
-        423
+        4080,
+        448
       ],
       "id": "118d0e06-266e-460c-b825-1ec13ae259d3",
       "name": "Show models to user to select",
@@ -1663,8 +1613,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        2980,
-        1465
+        3200,
+        1550.5
       ],
       "id": "388daf2c-f8d5-4e14-8651-a06470581734",
       "name": "Switch"
@@ -1680,8 +1630,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3640,
-        1465
+        3860,
+        1550.5
       ],
       "id": "57fcb6d4-2b0a-4294-82f8-729126abc6fe",
       "name": "Update user about model update",
@@ -1845,8 +1795,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3200,
-        1465
+        3420,
+        1550.5
       ],
       "id": "dbc7b8f4-d759-4403-85a5-078bfa029454",
       "name": "Update model in db",
@@ -1868,8 +1818,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3420,
-        1465
+        3640,
+        1550.5
       ],
       "id": "d92ef5f8-d6f2-4b0c-9dc9-4078683086aa",
       "name": "Show Typing1",
@@ -1888,7 +1838,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
       "typeVersion": 1,
       "position": [
-        5540,
+        6200,
         160
       ],
       "id": "da1af210-fd3c-4dbd-ba61-5cf9eb53d5e1",
@@ -1908,8 +1858,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3420,
-        965
+        4080,
+        1040
       ],
       "id": "4f0d170c-4892-4624-8ca3-6404a979fcfd",
       "name": "Show typing",
@@ -1950,7 +1900,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        5660,
+        6320,
         160
       ],
       "id": "32616b7d-7f45-47b2-aac4-6854d1a436d9",
@@ -1969,8 +1919,8 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        3860,
-        823
+        4520,
+        1115
       ],
       "id": "0cdf4a53-091f-410b-b5bf-c123fc66cd28",
       "name": "Generate UUID for image filename"
@@ -2003,8 +1953,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3640,
-        965
+        4300,
+        1040
       ],
       "id": "8c62dfa7-1252-4695-a0d1-d14666143bc0",
       "name": "Check if the input has image"
@@ -2039,8 +1989,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        4520,
-        823
+        5180,
+        1115
       ],
       "credentials": {
         "supabaseApi": {
@@ -2066,8 +2016,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        4080,
-        823
+        4740,
+        1115
       ],
       "id": "0ec8c2a8-f8e5-44db-b707-cc275b37965c",
       "name": "Get the Image raw data"
@@ -2081,8 +2031,8 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        4300,
-        823
+        4960,
+        1115
       ],
       "id": "8508453c-d043-489e-904e-438dc2c38fa7",
       "name": "Convert the Image Raw Data to Binary Format"
@@ -2094,8 +2044,8 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        3640,
-        623
+        4080,
+        648
       ],
       "id": "94c4b672-188d-4cdc-abae-1846604c42ac",
       "name": "Generate UUID for new chat"
@@ -2107,7 +2057,7 @@
             {
               "id": "3fb1fb89-0848-4c8a-b037-c12a958f44e1",
               "name": "text",
-              "value": "={{\n    $('Upload Image to supabase')?.isExecuted && $('Upload Image to supabase')?.item?.json?.body?.Key \n        ? \"image_url: https://supabase.afrocentricweb.com/storage/v1/object/public/\" + $('Upload Image to supabase').item.json.body.Key \n        : \"\"\n}}\n\n{{\n    $('Telegram Trigger').item.json.message.caption ?? \n    $('Telegram Trigger').item.json.message.text ?? \n    (\n        $('Upload Image to supabase')?.isExecuted && $('Upload Image to supabase')?.item?.json?.body?.Key \n            ? \"briefly describe the image\" \n            : (\n                $('Telegram Trigger').item.json.message.sticker \n                    ? \"Sticker sent: \" + $('Telegram Trigger').item.json.message.sticker.emoji + \" from set \" + $('Telegram Trigger').item.json.message.sticker.set_name \n                    : \"\"\n            )\n    )\n}}\n",
+              "value": "={{\n    $('Upload Image to supabase')?.isExecuted && $('Upload Image to supabase')?.item?.json?.body?.Key \n        ? \"image_url: https://supabase.afrocentricweb.com/storage/v1/object/public/\" + $('Upload Image to supabase').item.json.body.Key \n        : \"\"\n}}\n\n{{\n    $('Telegram Trigger').item.json.message.caption ?? \n    $('Telegram Trigger').item.json.message.text ?? \n    (\n        $('Upload Image to supabase')?.isExecuted && $('Upload Image to supabase')?.item?.json?.body?.Key \n            ? \"briefly describe the image\" \n            : (\n                $('Telegram Trigger').item.json.message.sticker \n                    ? \"Sticker sent: \" + $('Telegram Trigger').item.json.message.sticker.emoji + \" from set \" + $('Telegram Trigger').item.json.message.sticker.set_name \n                    : \"\"\n            )\n    )\n}}\n {{ $('Telegram Trigger').item.json.inline_query.query.replace(/!+$/,\"\")??\"\" }}\n",
               "type": "string"
             }
           ]
@@ -2117,268 +2067,323 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        4740,
-        965
+        5400,
+        890
       ],
       "id": "0aae70c4-872e-4f6e-a570-9efefa9dd672",
       "name": "Message to Send"
     },
     {
       "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "usage_metrics",
-          "mode": "list",
-          "cachedResultName": "usage_metrics"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "was_successful": true,
-            "request_content_type": "text",
-            "response_time_ms": 2200,
-            "tokens_used": 200,
-            "user_id": "={{ $('Get the User').item.json.id }}"
-          },
-          "matchingColumns": [
-            "user_id"
-          ],
-          "schema": [
+        "assignments": {
+          "assignments": [
             {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "user_id",
-              "displayName": "user_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "command_id",
-              "displayName": "command_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "tokens_used",
-              "displayName": "tokens_used",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "request_timestamp",
-              "displayName": "request_timestamp",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "response_time_ms",
-              "displayName": "response_time_ms",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "was_successful",
-              "displayName": "was_successful",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "error_message",
-              "displayName": "error_message",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "request_content_type",
-              "displayName": "request_content_type",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "request_source",
-              "displayName": "request_source",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
+              "id": "92be311f-259a-480b-b634-90db569779c5",
+              "name": "query",
+              "value": "={{ $('Telegram Trigger').item.json.inline_query.query }}",
+              "type": "string"
             }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
+          ]
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
       "position": [
-        6020,
-        760
+        3200,
+        1350.5
       ],
-      "id": "d0480154-5432-4c58-b472-11ed0778a0b9",
-      "name": "Postgres",
+      "id": "460d3021-3091-4901-a127-ffcb47475c34",
+      "name": "Inline Query Text"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5cae0f6c-76c4-4c59-8eb4-950d4499d31d",
+              "name": "user_telegram_id",
+              "value": "={{ $('Telegram Trigger').item.json.message?.from.id ?? $('Telegram Trigger').item.json.callback_query?.from.id??$('Telegram Trigger').item.json.inline_query.from.id }}",
+              "type": "string"
+            },
+            {
+              "id": "fd9060d9-174c-48f6-8863-29faad672770",
+              "name": "inline_trigger_key",
+              "value": "!!!",
+              "type": "string"
+            },
+            {
+              "id": "75cb9b76-c83c-40dd-b945-57ef2a305816",
+              "name": "is_inline_query",
+              "value": "={{ $json.inline_query.isNotEmpty() }}",
+              "type": "boolean"
+            },
+            {
+              "id": "a83ab5d8-4da1-4f9e-9c70-883528fe89a0",
+              "name": "super_admin_id",
+              "value": "1612078205",
+              "type": "string"
+            },
+            {
+              "id": "caf12b90-cc3d-43d1-9eb5-3fe53015ef76",
+              "name": "input_has_binary",
+              "value": "={{ $('Telegram Trigger').item.binary??false }}",
+              "type": "boolean"
+            },
+            {
+              "id": "fa83b740-26fb-4842-bb12-2c4407acf5df",
+              "name": "inline_query_id",
+              "value": "={{ $('Telegram Trigger').item.json.inline_query.id??\"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1220,
+        869
+      ],
+      "id": "4d141329-bfb4-4fbc-b1c0-04bcef7907f0",
+      "name": "Constants We Can Reuse"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3b208ac1-7e1f-4cc4-9e30-65bcd065ca2c",
+              "leftValue": "={{ $('Inline Query Text').item.json.query }}",
+              "rightValue": "={{ $('Constants We Can Reuse').item.json.inline_trigger_key }}",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3420,
+        1350.5
+      ],
+      "id": "9eda4055-6ab2-4421-be12-077f3906b8c1",
+      "name": "Check if it's complete query. i.e. must end with <inline query tigger key>"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4d6a817f-159d-4954-97ed-2a474e7afa30",
+              "leftValue": "={{ $('Get the User').item.json.current_daily_usage }}",
+              "rightValue": "={{ $('Get the User').item.json.daily_limit }}",
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3640,
+        1250.5
+      ],
+      "id": "abcbdf04-0de6-4fdb-a187-31cebd328e0a",
+      "name": "Check if user has not exceeded their limit"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Constants We Can Reuse').item.json.user_telegram_id }}",
+        "text": "You have exhausted your daily message limit",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": "={{ $('Get the User').item.json.notification_enabled }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3860,
+        1350.5
+      ],
+      "id": "4f424d40-4e5d-493c-9745-bb678100683b",
+      "name": "User has exceeded usage",
+      "webhookId": "894a6f32-9708-4e8e-95bf-49acc1bf8d59",
       "credentials": {
-        "postgres": {
-          "id": "sAspizPPCabx4KQO",
-          "name": "Postgres account"
+        "telegramApi": {
+          "id": "SGzficJOB3gd324s",
+          "name": "Telegram account"
         }
       }
     },
     {
       "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "rate_limits",
-          "mode": "list",
-          "cachedResultName": "rate_limits"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "daily_limit": 0
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
           },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
+          "conditions": [
             {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "user_id",
-              "displayName": "user_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "daily_limit",
-              "displayName": "daily_limit",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "monthly_limit",
-              "displayName": "monthly_limit",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "current_daily_usage",
-              "displayName": "current_daily_usage",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "current_monthly_usage",
-              "displayName": "current_monthly_usage",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "last_reset_daily",
-              "displayName": "last_reset_daily",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "last_reset_monthly",
-              "displayName": "last_reset_monthly",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true
+              "id": "eaeb477c-74f4-4b43-8682-0e44348903fb",
+              "leftValue": "={{ $('Constants We Can Reuse').item.json.is_inline_query }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
             }
           ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
+          "combinator": "and"
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
       "position": [
-        6020,
-        540
+        3860,
+        965
       ],
-      "id": "a60b8f84-482f-433f-a357-b3e2b54a0c9d",
-      "name": "Postgres1",
+      "id": "be13ebf6-b916-421d-859e-e0f2ab768691",
+      "name": "check if inline query"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6d9b2677-d0ba-4992-bab7-3ce06977e106",
+              "leftValue": "={{ $('Constants We Can Reuse').item.json.is_inline_query }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        6960,
+        890
+      ],
+      "id": "f4bf4a06-d6a1-4985-bdad-89f2907d765c",
+      "name": "if it's inline query we return differently"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9eb33a54-1384-4610-aeb6-b1a874dc4a2b",
+              "name": "message",
+              "value": "={{ $('Open AI Agent').isExecuted ? $('Open AI Agent').item.json.output : \"\" }} \n{{ $('Claude Agent').isExecuted ? $('Claude Agent').item.json.output : \"\" }} \n{{ $('DeepSeek Agent').isExecuted ? $('DeepSeek Agent').item.json.output : \"\" }} \n{{ $('Gemini Agent').isExecuted ? $('Gemini Agent').item.json.output : \"\" }} \n{{ $('Groq Agent').isExecuted ? $('Groq Agent').item.json.output : \"\" }} ",
+              "type": "string"
+            },
+            {
+              "id": "77bfdad7-9bc3-4fd6-b19c-686f4c84051e",
+              "name": "sent_message",
+              "value": "={{ $('Message to Send').item.json.text.trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6740,
+        890
+      ],
+      "id": "42cff74e-e27a-461f-94dd-398b369fae3a",
+      "name": "AI Output Text"
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "operation": "answerInlineQuery",
+        "queryId": "={{ $('Constants We Can Reuse').item.json.inline_query_id }}",
+        "results": "=[\n  {\n    \"type\": \"article\",\n    \"id\": \"1\",\n    \"title\": \"Results for: {{ $('AI Output Text').item.json.sent_message.trim().replace(/[_*[\\]()~`>#+\\-=|{}.!]/g, '\\\\$&') }}\",\n    \"input_message_content\": {\n      \"message_text\": \"{{ $('AI Output Text').item.json.message.trim().replace(/[_*[\\]()~`>#+\\-=|{}.!]/g, '\\\\$&') }}\",\n      \"parse_mode\": \"Markdown\"\n    },\n    \"thumb_url\": \"https://supabase.afrocentricweb.com/storage/v1/object/public/images/IMAGE%202025-03-18%2008:57:52.jpg\",\n    \"description\": \"Random image from Unsplash.\"\n  }\n]\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        7180,
+        740
+      ],
+      "id": "6382e679-804f-40e1-845d-7c1f9842dac0",
+      "name": "Respond to Inline Queries",
+      "webhookId": "7cf2ad59-a8c6-499d-8b4d-0e274451c01b",
       "credentials": {
-        "postgres": {
-          "id": "sAspizPPCabx4KQO",
-          "name": "Postgres account"
+        "telegramApi": {
+          "id": "SGzficJOB3gd324s",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Constants We Can Reuse').item.json.user_telegram_id }}",
+        "text": "={{ $('AI Output Text').item.json.message.trim() }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": "={{ $('Get the User').item.json.notification_enabled }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        7180,
+        940
+      ],
+      "id": "96075a37-3fd7-4631-bada-42d9fe38e330",
+      "name": "Respond To User",
+      "webhookId": "7cf2ad59-a8c6-499d-8b4d-0e274451c01b",
+      "credentials": {
+        "telegramApi": {
+          "id": "SGzficJOB3gd324s",
+          "name": "Telegram account"
         }
       }
     }
@@ -2433,7 +2438,7 @@
       "main": [
         [
           {
-            "node": "Commands",
+            "node": "Constants We Can Reuse",
             "type": "main",
             "index": 0
           }
@@ -2614,7 +2619,7 @@
       "main": [
         [
           {
-            "node": "Telegram",
+            "node": "AI Output Text",
             "type": "main",
             "index": 0
           }
@@ -2703,25 +2708,7 @@
         ],
         [
           {
-            "node": "Check if user has not exceeded their daily limit",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Check if user has not exceeded their daily limit": {
-      "main": [
-        [
-          {
-            "node": "Show typing",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "User has exceeded daily usage",
+            "node": "Check if user has not exceeded their limit",
             "type": "main",
             "index": 0
           }
@@ -2850,6 +2837,13 @@
         [
           {
             "node": "Check if the message starts with slash",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Inline Query Text",
             "type": "main",
             "index": 0
           }
@@ -3051,9 +3045,102 @@
         ]
       ]
     },
-    "Postgres": {
+    "Inline Query Text": {
       "main": [
-        []
+        [
+          {
+            "node": "Check if it's complete query. i.e. must end with <inline query tigger key>",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Constants We Can Reuse": {
+      "main": [
+        [
+          {
+            "node": "Commands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if it's complete query. i.e. must end with <inline query tigger key>": {
+      "main": [
+        [
+          {
+            "node": "Check if user has not exceeded their limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if user has not exceeded their limit": {
+      "main": [
+        [
+          {
+            "node": "check if inline query",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "User has exceeded usage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check if inline query": {
+      "main": [
+        [
+          {
+            "node": "Message to Send",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Show typing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if it's inline query we return differently": {
+      "main": [
+        [
+          {
+            "node": "Respond to Inline Queries",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond To User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Output Text": {
+      "main": [
+        [
+          {
+            "node": "if it's inline query we return differently",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -3061,7 +3148,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "bc3a7f98-2cdf-41bf-baf7-43b920e5ede5",
+  "versionId": "329714f6-02ce-4984-9994-321992a99c90",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "d64b1e14b2582a3e9a272b2ec3e6f87392e6515dc9dbed4975fd3c860d2bbbe4"
